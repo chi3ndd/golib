@@ -1,6 +1,6 @@
 package rest
 
-import "golib/slice"
+import "github.com/chi3ndd/golib/slice"
 
 const (
 	Module = "REST"

@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"golib/log"
+	"github.com/chi3ndd/golib/log"
 	"io/ioutil"
 	"net/http"
 	"net/mail"

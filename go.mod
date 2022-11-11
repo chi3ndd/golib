@@ -1,4 +1,4 @@
-module golib
+module github.com/chi3ndd/golib
 
 go 1.16
 

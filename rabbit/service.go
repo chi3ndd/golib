@@ -7,8 +7,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/streadway/amqp"
 
-	"golib/clock"
-	"golib/log"
+	"github.com/chi3ndd/golib/clock"
+	"github.com/chi3ndd/golib/log"
 )
 
 type service struct {

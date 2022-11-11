@@ -11,8 +11,8 @@ import (
 
 	rd "github.com/go-redis/redis/v8"
 
-	"golib/clock"
-	"golib/log"
+	"github.com/chi3ndd/golib/clock"
+	"github.com/chi3ndd/golib/log"
 )
 
 type service struct {

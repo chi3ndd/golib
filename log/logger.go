@@ -11,7 +11,7 @@ import (
 	"strings"
 	"sync/atomic"
 
-	"golib/clock"
+	"github.com/chi3ndd/golib/clock"
 )
 
 var (

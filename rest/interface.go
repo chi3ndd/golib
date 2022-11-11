@@ -4,7 +4,7 @@ import (
 	"io"
 	"os"
 
-	"golib/log"
+	"github.com/chi3ndd/golib/log"
 )
 
 type (

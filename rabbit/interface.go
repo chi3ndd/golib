@@ -1,6 +1,6 @@
 package rabbit
 
-import "golib/clock"
+import "github.com/chi3ndd/golib/clock"
 
 type (
 	Service interface {

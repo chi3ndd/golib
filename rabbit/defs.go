@@ -3,7 +3,7 @@ package rabbit
 import (
 	"github.com/streadway/amqp"
 
-	"golib/clock"
+	"github.com/chi3ndd/golib/clock"
 )
 
 const (

@@ -3,7 +3,7 @@ package redis
 import (
 	"time"
 
-	"golib/clock"
+	"github.com/chi3ndd/golib/clock"
 )
 
 type (
