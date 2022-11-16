@@ -1,6 +1,10 @@
 package rest
 
-import "github.com/chi3ndd/golib/slice"
+import (
+	"fmt"
+
+	"github.com/chi3ndd/golib/slice"
+)
 
 const (
 	Module = "REST"
@@ -240,16 +244,15 @@ var (
 )
 
 func StatusText(code int) string {
+	text := statusText[code]
+	if text != "" {
+		text = fmt.Sprintf("%d %s", code, text)
+	}
 	// Success
-	return statusText[code]
+	return text
 }
 
 func ValidContentType(contentType string) bool {
 	// Success
 	return slice.String(contentTypes).Contains(contentType)
-}
-
-func Success(code int) bool {
-	// Success
-	return code < StatusBadRequest
 }

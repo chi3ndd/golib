@@ -8,11 +8,14 @@ import (
 )
 
 type (
-	JsonInterface interface {
-		Code(code int) JsonInterface
-		Body(data interface{}) JsonInterface
-		Log(data interface{}) JsonInterface
+	JSONInterface interface {
+		Code(code int) JSONInterface
+		Message(message string) JSONInterface
+		Data(data interface{}) JSONInterface
+		Log(data interface{}) JSONInterface
 		Go() error
+		ResponseOK(data interface{}) error
+		ResponseError(code int, err error, message string) error
 	}
 
 	StreamInterface interface {
