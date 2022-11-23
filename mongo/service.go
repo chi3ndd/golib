@@ -72,6 +72,9 @@ func (con *service) Get(database, collection, id string, result interface{}) err
 		}
 		return err
 	}
+	if res == nil {
+		return errors.New(NotFoundError)
+	}
 	if err := res.Decode(result); err != nil {
 		return err
 	}
@@ -109,6 +112,9 @@ func (con *service) FindOne(database, collection string, query *bson.M, sorts []
 		}
 		return err
 	}
+	if res == nil {
+		return errors.New(NotFoundError)
+	}
 	if err := res.Decode(result); err != nil {
 		return err
 	}
@@ -142,6 +148,9 @@ func (con *service) FindMany(database, collection string, query *bson.M, sorts [
 			return 0, errors.New(NotFoundError)
 		}
 		return 0, err
+	}
+	if cur == nil {
+		return 0, errors.New(NotFoundError)
 	}
 	resultType := reflect.TypeOf(results)
 	resultValue := reflect.ValueOf(results)
