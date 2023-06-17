@@ -24,17 +24,6 @@ type (
 	}
 )
 
-func newElastic(addr string) (*ES, error) {
-	client, err := es.NewClient(es.SetURL(addr), es.SetSniff(false))
-	if err != nil {
-		return nil, err
-	}
-	// Success
-	return &ES{
-		model: client,
-	}, nil
-}
-
 func (con *ES) Bulk() *BulkService {
 	// Success
 	return &BulkService{helper: es.NewBulkService(con.model)}
@@ -228,5 +217,13 @@ func (con *ES) DeleteByQuery(index string, query Query) (*es.BulkIndexByScrollRe
 		Index(index).
 		Query(query).
 		Refresh("true").
+		Do(context.Background())
+}
+
+func (con *ES) Aggregate(index string, query Query, name string, agg es.Aggregation) (*es.SearchResult, error) {
+	return con.model.Search().
+		Index(index).
+		Query(query).
+		Aggregation(name, agg).
 		Do(context.Background())
 }

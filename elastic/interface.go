@@ -1,5 +1,9 @@
 package elastic
 
+import (
+	es "github.com/olivere/elastic/v7"
+)
+
 type Database interface {
 	Get(database, collection, id string, result interface{}) error
 	Exists(database, collection, id string) (bool, error)
@@ -15,4 +19,5 @@ type Database interface {
 	UpdateMany(database, collection string, query Query, update interface{}, upsert bool) error
 	DeleteByID(database, collection, id string) error
 	DeleteMany(database, collection string, query Query) error
+	Aggregate(database, _ string, query Query, name string, aggregation es.Aggregation, result interface{}) error
 }

@@ -13,12 +13,18 @@ type service struct {
 }
 
 func NewService(conf Config) (Database, error) {
-	con, err := newElastic(conf.String())
+	opts := make([]es.ClientOptionFunc, 0)
+	opts = append(opts, es.SetURL(conf.Address))
+	opts = append(opts, es.SetSniff(false))
+	if conf.Auth.Enable {
+		opts = append(opts, es.SetBasicAuth(conf.Auth.Username, conf.Auth.Password))
+	}
+	con, err := es.NewClient(opts...)
 	if err != nil {
 		return nil, err
 	}
 	// Success
-	return &service{model: con}, nil
+	return &service{model: &ES{model: con}}, nil
 }
 
 func (con *service) Get(database, _, id string, result interface{}) error {
@@ -197,6 +203,22 @@ func (con *service) DeleteByID(database, _, id string) error {
 func (con *service) DeleteMany(database, _ string, query Query) error {
 	_, err := con.model.DeleteByQuery(database, query)
 	if err != nil {
+		return err
+	}
+	// Success
+	return nil
+}
+
+func (con *service) Aggregate(database, _ string, query Query, name string, aggregation es.Aggregation, result interface{}) error {
+	res, err := con.model.Aggregate(database, query, name, aggregation)
+	if err != nil {
+		return err
+	}
+	bts, err := res.Aggregations[name].MarshalJSON()
+	if err != nil {
+		return err
+	}
+	if err = json.Unmarshal(bts, result); err != nil {
 		return err
 	}
 	// Success
